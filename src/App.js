@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import CardGrid from './components/CardGrid'
-import SearchStory from './components/SearchStory'
+import Header from './components/Header'
+import './App.css'
 
 class App extends Component {
   render() {
     return (
       <div>
-        <h1>Navigation Bar</h1>
-        <SearchStory></SearchStory>
+        <Header></Header>
         <CardGrid></CardGrid>
       </div>
     )

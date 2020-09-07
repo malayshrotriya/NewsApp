@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import CardItem from './CardItem'
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
 import { connect } from 'react-redux'
 import * as actionCreators from '../store/Actions'
 
 class CardGrid extends Component {
-
-
-
-    // componentDidMount() {
-    //     axios.get('https://cors-anywhere.herokuapp.com/ace.qtstage.io/api/v1/collections/entertainment').then(res => {
-    //         return this.setState({ items: res.data.items })
-    //     });
-    // }
 
     componentDidMount() {
         this.props.fetch()
@@ -24,18 +15,19 @@ class CardGrid extends Component {
     }
 
     render() {
-        let filteredStories = this.props.items.filter(story => {
-            return story.story.headline.indexOf(this.props.search) !== -1;
+
+        let filteredStories = this.props.items.filter(str => {
+            return str.story.headline.toLowerCase().indexOf(this.props.search) !== -1;
         });
         return (
             <div>
-                <form>
-                    <input type="text" onChange={this.onChangeHandler} />
+                <form style={formStyles}>
+                    <input style={inputStyles} type="text" onChange={this.onChangeHandler} placeholder="Search via Headline" />
                 </form>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} style={gridStyles}>
                     {filteredStories.map(item => {
                         return (
-                            <Grid item xs={3}>
+                            <Grid item md={3} sm={4} xs={6}>
                                 <CardItem items={item}></CardItem>
                             </Grid>
                         )
@@ -45,6 +37,23 @@ class CardGrid extends Component {
         )
     }
 }
+
+const inputStyles = {
+    width: "100%",
+    padding: "12px 20px",
+    textAlign: "center",
+}
+
+const formStyles = {
+    margin: "auto",
+    width: "50%"
+}
+
+const gridStyles = {
+    margin: "auto"
+}
+
+
 
 const mapStateToProps = (state) => {
     return {
